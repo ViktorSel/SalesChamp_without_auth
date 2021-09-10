@@ -24,38 +24,32 @@ const payload = {
     number: number()
         .required('Number is required')
         .min(1, 'Number should be 0 minimum.'),
-    ​numberAddition: string()
-        .default(''),
-    createdAt: date()
-        .default(new Date()),
-    updatedAt: date()
-        .default(new Date()),
-    status: string()
-        .default(null),
-    name: string()
-        .default(null),
+    ​numberAddition: string(),
+    createdAt: date(),
+    updatedAt: date(),
+    status: string(),
+    name: string(),
     email: string()
         .email('Must be a valid email')
         .max(255)
-        .default(null)
   }),
 };
 
 const params = {
   params: object({
-    postId: string().required('postId is required'),
+    addressId: string().required('addressId is required'),
   }),
 };
 
-export const createPostSchema = object({
+export const createAddressSchema = object({
   ...payload,
 });
 
-export const updatePostSchema = object({
+export const updateAddressSchema = object({
   ...params,
   ...payload,
 });
 
-export const deletePostSchema = object({
+export const deleteAddressSchema = object({
   ...params,
 });

@@ -1,10 +1,10 @@
 import { Express, Request, Response } from 'express';
-// import {
-//   createPostHandler,
-//   updatePostHandler,
-//   getPostHandler,
-//   deletePostHandler,
-// } from './controller/post.controller';
+import {
+  createAddressHandler,
+  updateAddressHandler,
+  getAddressHandler,
+  deleteAddressHandler,
+} from './controller/address.controller';
 import { createUserHandler } from './controller/user.controller';
 import {
   createUserSessionHandler,
@@ -16,11 +16,11 @@ import {
   createUserSchema,
   createUserSessionSchema,
 } from './schema/user.schema';
-// import {
-//   createPostSchema,
-//   updatePostSchema,
-//   deletePostSchema,
-// } from './schema/post.schema';
+import {
+  createAddressSchema,
+  updateAddressSchema,
+  deleteAddressSchema,
+} from './schema/address.schema';
 
 export default function (app: Express) {
   app.get('/healthcheck', (req: Request, res: Response) => res.sendStatus(200));
@@ -41,27 +41,27 @@ export default function (app: Express) {
   // Logout
   app.delete('/api/sessions', requiresUser, invalidateUserSessionHandler);
 
-  // Create a post
-  // app.post(
-  //   '/api/posts',
-  //   [requiresUser, validateRequest(createPostSchema)],
-  //   createPostHandler
-  // );
+  //Create a address
+  app.post(
+    '/api/address',
+    [requiresUser, validateRequest(createAddressSchema)],
+    createAddressHandler
+  );
 
-  // Update a post
-  // app.put(
-  //   '/api/posts/:postId',
-  //   [requiresUser, validateRequest(updatePostSchema)],
-  //   updatePostHandler
-  // );
+ // Update a address
+  app.put(
+    '/api/address/:addressId',
+    [requiresUser, validateRequest(updateAddressSchema)],
+    updateAddressHandler
+  );
 
-  // Get a post
-  // app.get('/api/posts/:postId', getPostHandler);
+  //Get a address
+  app.get('/api/address/:addressId', getAddressHandler);
 
-  // Delete a post
-  // app.delete(
-  //   '/api/posts/:postId',
-  //   [requiresUser, validateRequest(deletePostSchema)],
-  //   deletePostHandler
-  // );
+  //Delete a address
+  app.delete(
+    '/api/address/:addressId',
+    [requiresUser, validateRequest(deleteAddressSchema)],
+    deleteAddressHandler
+  );
 }
