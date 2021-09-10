@@ -10,6 +10,9 @@ import {
 export async function createAddressHandler(req: Request, res: Response) {
   const userId = get(req, 'user._id');
   const body = req.body;
+  const Location = get(req, 'path');
+  
+  res.setHeader('Location', Location);
 
   const address = await createAddress({ ...body, user: userId });
 
@@ -20,6 +23,9 @@ export async function updateAddressHandler(req: Request, res: Response) {
   const userId = get(req, 'user._id');
   const addressId = get(req, 'params.addressId');
   const update = req.body;
+  const Location = get(req, 'path');
+  
+  res.setHeader('Location', Location);
 
   const address = await findAddress({ addressId });
 
@@ -38,6 +44,9 @@ export async function updateAddressHandler(req: Request, res: Response) {
 export async function getAddressHandler(req: Request, res: Response) {
   const addressId = get(req, 'params.addressId');
   const address = await findAddress({ addressId });
+  const Location = get(req, 'path');
+  
+  res.setHeader('Location', Location);
 
   if (!address) {
     return res.sendStatus(404);
@@ -48,7 +57,10 @@ export async function getAddressHandler(req: Request, res: Response) {
 
 export async function deleteAddressHandler(req: Request, res: Response) {
   const userId = get(req, 'user._id');
-  const addressId = get(req, 'params.postId');
+  const addressId = get(req, 'params.addressId');
+  const Location = get(req, 'path');
+
+  res.setHeader('Location', Location);
 
   const address = await findAddress({ addressId });
 

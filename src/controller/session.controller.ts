@@ -49,6 +49,9 @@ export async function invalidateUserSessionHandler(
 
 export async function getUserSessionsHandler(req: Request, res: Response) {
   const userId = get(req, 'user._id');
+  const Location = get(req, 'path');
+  
+  res.setHeader('Location', Location);
 
   const sessions = await findSessions({ user: userId, valid: true });
 
