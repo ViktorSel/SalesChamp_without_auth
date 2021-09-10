@@ -2,7 +2,7 @@
   "name": "saleschamp",
   "version": "1.0.0",
   "description": "Test",
-    "scripts": {
+  "scripts": {
     "start": "nodemon --config nodemon.json src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +13,7 @@
   "author": "Viktor Selednikov <v.selednikov@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@types/underscore": "^1.11.3",
     "bcrypt": "^5.0.1",
     "config": "^3.3.6",
     "cors": "^2.8.5",
@@ -24,6 +25,7 @@
     "nanoid": "^3.1.25",
     "pino": "^6.13.2",
     "pino-pretty": "^7.0.0",
+    "underscore": "^1.13.1",
     "yup": "^0.32.9"
   },
   "devDependencies": {

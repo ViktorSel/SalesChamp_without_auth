@@ -1,4 +1,5 @@
 import config from 'config';
+import _ from 'underscore';
 import { get } from 'lodash';
 import { Request, Response } from 'express';
 import { validatePassword } from '../service/user.service';
@@ -9,6 +10,8 @@ import {
   findSessions,
 } from '../service/session.service';
 import { sign } from '../utils/jwt.utils';
+import { SessionDocument } from '../model/session.model';
+import { number } from 'yup';
 
 export async function createUserSessionHandler(req: Request, res: Response) {
   // validate the email and password
@@ -36,10 +39,7 @@ export async function createUserSessionHandler(req: Request, res: Response) {
   return res.send({ accessToken, refreshToken });
 }
 
-export async function invalidateUserSessionHandler(
-  req: Request,
-  res: Response
-) {
+export async function invalidateUserSessionHandler(req: Request, res: Response) {
   const sessionId = get(req, 'user.session');
 
   await updateSession({ _id: sessionId }, { valid: false });
@@ -52,8 +52,19 @@ export async function getUserSessionsHandler(req: Request, res: Response) {
   const Location = get(req, 'path');
   
   res.setHeader('Location', Location);
+  
 
   const sessions = await findSessions({ user: userId, valid: true });
+  
+  if (sessions.length) {
+    const lastModifiedSession = _.max(sessions, function (el) {
+      return new Date(el.updatedAt).getTime();
+    });
+    if (typeof lastModifiedSession == 'number') res.append('Last-Modified', (new Date(lastModifiedSession)).toUTCString());
+    else if (typeof lastModifiedSession == 'object') res.append('Last-Modified', (new Date(lastModifiedSession.createdAt)).toUTCString());
+  }
+
+  
 
   return res.send(sessions);
 }
