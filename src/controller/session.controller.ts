@@ -61,7 +61,7 @@ export async function getUserSessionsHandler(req: Request, res: Response) {
       return new Date(el.updatedAt).getTime();
     });
     if (typeof lastModifiedSession == 'number') res.append('Last-Modified', (new Date(lastModifiedSession)).toUTCString());
-    else if (typeof lastModifiedSession == 'object') res.append('Last-Modified', (new Date(lastModifiedSession.createdAt)).toUTCString());
+    else if (typeof lastModifiedSession == 'object') res.append('Last-Modified', (new Date(lastModifiedSession.updatedAt)).toUTCString());
   }
 
   
