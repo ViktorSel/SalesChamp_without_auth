@@ -1,5 +1,3 @@
 export default {
-  port: 1337,
-  host: "localhost",
-  dbUri: "mongodb://localhost:27017/rest-api"
+  dbUri: "mongodb+srv://SalesChamp:SalesChamp@saleschampcluster.pg0kz.mongodb.net/SalesChampCluster?retryWrites=true&w=majority"
 }
