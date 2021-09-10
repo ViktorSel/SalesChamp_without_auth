@@ -2,9 +2,8 @@
   "name": "saleschamp",
   "version": "1.0.0",
   "description": "Test",
-  "main": "index.js",
-  "scripts": {
-    "dev": "nodemon --config nodemon.json src/app.ts",
+    "scripts": {
+    "start": "nodemon --config nodemon.json src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
