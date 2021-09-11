@@ -88,5 +88,5 @@ export async function deleteAddressHandler(req: Request, res: Response) {
 
   await deleteAddress({ addressId });
 
-  return res.sendStatus(200);
+  return res.sendStatus(204);
 }
