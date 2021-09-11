@@ -41,8 +41,9 @@ export async function updateAddressHandler(req: Request, res: Response) {
   if ((address && address.status == null) || (address && address.status == 'not at home')) {
 
     const updatedAddress = await findAndUpdate({ _id:addressId }, update, { new: true });
+    delete updatedAddress.userId;
     return res.send(updatedAddress);
-    
+
   }
   else return res.sendStatus(403);
 }
