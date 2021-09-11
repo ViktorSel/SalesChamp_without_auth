@@ -28,7 +28,7 @@ export async function updateAddressHandler(req: Request, res: Response) {
   
   res.setHeader('Location', Location);
 
-  const address = await findAddress({ _id:addressId, userId:userId });
+  const address = await findAddress({ _id:addressId });
 
   if (address && String(address.userId) !== userId) {
     return res.sendStatus(401);
