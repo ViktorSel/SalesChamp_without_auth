@@ -10,7 +10,7 @@ import {
 
 export async function createAddressHandler(req: Request, res: Response) {
   const userId = get(req, 'user._id');
-  const body = req.body;
+  const body = {...req.body, ...{userId:userId}};
   const Location = get(req, 'path');
   
   res.setHeader('Location', Location);
