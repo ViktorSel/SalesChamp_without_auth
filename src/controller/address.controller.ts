@@ -45,7 +45,7 @@ export async function updateAddressHandler(req: Request, res: Response) {
 export async function getAddressHandler(req: Request, res: Response) {
   const userId = get(req, 'user._id');
   const addressId = get(req, 'params.addressId');
-  const address = await findAddress({ _id:addressId });
+  let address = await findAddress({ _id:addressId });
   const Location = get(req, 'path');
   
   res.setHeader('Location', Location);
@@ -58,12 +58,14 @@ export async function getAddressHandler(req: Request, res: Response) {
     return res.sendStatus(404);
   }
 
+  delete address.userId;
+
   return res.send(address);
 }
 
 export async function getAllAddressHandler(req: Request, res: Response) {
   const userId = get(req, 'user._id');
-  const address = await findAllAddress({ userId:userId });
+  let address = await findAllAddress({ userId:userId });
   const Location = get(req, 'path');
   
   res.setHeader('Location', Location);
@@ -71,6 +73,11 @@ export async function getAllAddressHandler(req: Request, res: Response) {
   if (!address) {
     return res.sendStatus(404);
   }
+
+  address = address.map((el)=>{
+    delete el.userId;
+    return el;
+  });
 
   return res.send(address);
 }
