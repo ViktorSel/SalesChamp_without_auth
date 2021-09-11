@@ -24,12 +24,14 @@ import {
     return Address.find(query, {}, options);
   }
   
-  export function findAndUpdate(
+  export async function findAndUpdate(
     query: FilterQuery<AddressDocument>,
     update: UpdateQuery<AddressDocument>,
     options: QueryOptions
   ) {
-    return Address.findOneAndUpdate(query, update, options);
+    let address = await Address.findOneAndUpdate(query, update, options);
+    delete address?.userId;
+    return address;
   }
   
   export function deleteAddress(query: FilterQuery<AddressDocument>) {

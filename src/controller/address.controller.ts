@@ -38,9 +38,13 @@ export async function updateAddressHandler(req: Request, res: Response) {
     return res.sendStatus(404);
   }
 
-  const updatedAddress = await findAndUpdate({ _id:addressId }, update, { new: true });
+  if ((address && address.status == null) || (address && address.status == 'not at home')) {
 
-  return res.send(updatedAddress);
+    const updatedAddress = await findAndUpdate({ _id:addressId }, update, { new: true });
+    return res.send(updatedAddress);
+    
+  }
+  else return res.sendStatus(403);
 }
 export async function getAddressHandler(req: Request, res: Response) {
   const userId = get(req, 'user._id');

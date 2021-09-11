@@ -38,11 +38,10 @@ const payload_patch = {
         .oneOf(['not at home', 'not interested', 'interested'],'Invalid value of Status')
         .required('Status is required'),
     name: string()
-        .nullable(true),
+        .max(255),
     email: string()
         .email('Must be a valid email')
-        .max(255)
-        .nullable(true),
+        .max(255),
   }),
 }
 
