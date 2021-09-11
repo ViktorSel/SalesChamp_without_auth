@@ -28,26 +28,31 @@ export async function updateAddressHandler(req: Request, res: Response) {
   
   res.setHeader('Location', Location);
 
-  const address = await findAddress({ addressId });
+  const address = await findAddress({ _id:addressId, userId:userId });
 
+  if (address && String(address.userId) !== userId) {
+    return res.sendStatus(401);
+  }
+  
   if (!address) {
     return res.sendStatus(404);
   }
 
-  if (String(address.user) !== userId) {
-    return res.sendStatus(401);
-  }
-
-  const updatedAddress = await findAndUpdate({ addressId }, update, { new: true });
+  const updatedAddress = await findAndUpdate({ _id:addressId }, update, { new: true });
 
   return res.send(updatedAddress);
 }
 export async function getAddressHandler(req: Request, res: Response) {
+  const userId = get(req, 'user._id');
   const addressId = get(req, 'params.addressId');
-  const address = await findAddress({ addressId });
+  const address = await findAddress({ _id:addressId });
   const Location = get(req, 'path');
   
   res.setHeader('Location', Location);
+
+  if (address && String(address.userId) !== userId) {
+    return res.sendStatus(401);
+  }
 
   if (!address) {
     return res.sendStatus(404);
@@ -57,7 +62,8 @@ export async function getAddressHandler(req: Request, res: Response) {
 }
 
 export async function getAllAddressHandler(req: Request, res: Response) {
-  const address = await findAllAddress({});
+  const userId = get(req, 'user._id');
+  const address = await findAllAddress({ userId:userId });
   const Location = get(req, 'path');
   
   res.setHeader('Location', Location);
@@ -80,10 +86,6 @@ export async function deleteAddressHandler(req: Request, res: Response) {
 
   if (!address) {
     return res.sendStatus(404);
-  }
-
-  if (String(address.user) !== String(userId)) {
-    return res.sendStatus(401);
   }
 
   await deleteAddress({ addressId });

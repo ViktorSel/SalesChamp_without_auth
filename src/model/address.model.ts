@@ -3,22 +3,22 @@ import { nanoid } from 'nanoid';
 import { UserDocument } from './user.model';
 
 export interface AddressDocument extends mongoose.Document {
-  user: UserDocument['_id'];
-  title: string;
-  body: string;
+  userId: UserDocument['_id'];
+  country: string;
+  city: string;
+  postalcode: string;
+  number: number;
+  numberAddition: string;
+  status: null | string;
+  name: null | string;
+  email: null | string;
   createdAt: Date;
   updatedAt: Date;
 }
 
 const AddressSchema = new mongoose.Schema(
   {
-    addressId: {
-      type: String,
-      required: true,
-      unique: true,
-      default: () => nanoid(10),
-    },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     country: { type: String, minlength:2, maxlength:2, uppercase: true, trim: true },
     city: { type: String,  minlength:1, trim: true },
     street: { type: String,  minlength:1, trim: true },
