@@ -49,11 +49,6 @@ export async function invalidateUserSessionHandler(req: Request, res: Response) 
 
 export async function getUserSessionsHandler(req: Request, res: Response) {
   const userId = get(req, 'user._id');
-  const Location = get(req, 'path');
-  
-  res.setHeader('Location', Location);
-  
-
   const sessions = await findSessions({ user: userId, valid: true });
   
   if (sessions.length) {
@@ -63,8 +58,6 @@ export async function getUserSessionsHandler(req: Request, res: Response) {
     if (typeof lastModifiedSession == 'number') res.append('Last-Modified', (new Date(lastModifiedSession)).toUTCString());
     else if (typeof lastModifiedSession == 'object') res.append('Last-Modified', (new Date(lastModifiedSession.updatedAt)).toUTCString());
   }
-
-  
 
   return res.send(sessions);
 }

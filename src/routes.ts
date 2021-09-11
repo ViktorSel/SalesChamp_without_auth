@@ -4,6 +4,7 @@ import {
   updateAddressHandler,
   getAddressHandler,
   deleteAddressHandler,
+  getAllAddressHandler,
 } from './controller/address.controller';
 import { createUserHandler } from './controller/user.controller';
 import {
@@ -49,11 +50,14 @@ export default function (app: Express) {
   );
 
  // Update a address
-  app.put(
+  app.patch(
     '/api/address/:addressId',
     [requiresUser, validateRequest(updateAddressSchema)],
     updateAddressHandler
   );
+
+   //Get all address
+  app.get('/api/address', getAllAddressHandler);
 
   //Get a address
   app.get('/api/address/:addressId', getAddressHandler);

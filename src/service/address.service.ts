@@ -16,6 +16,13 @@ import {
   ) {
     return Address.findOne(query, {}, options);
   }
+
+  export function findAllAddress(
+    query: FilterQuery<AddressDocument>,
+    options: QueryOptions = { lean: true }
+  ) {
+    return Address.find(query, {}, options);
+  }
   
   export function findAndUpdate(
     query: FilterQuery<AddressDocument>,
