@@ -34,7 +34,9 @@ const payload_post = {
 
 const payload_patch = {
   body: object({
-    status: mixed().oneOf([null, 'not at home', 'not interested', 'interested'],'Invalid value of Status'),
+    status: mixed()
+        .oneOf(['not at home', 'not interested', 'interested'],'Invalid value of Status')
+        .required('Status is required'),
     name: string()
         .nullable(true),
     email: string()
