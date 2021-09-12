@@ -45,7 +45,7 @@ export default function (app: Express) {
   //Create a address
   app.post(
     '/address',
-    [requiresUser, validateRequest(createAddressSchema)],
+    [validateRequest(createAddressSchema)],
     createAddressHandler
   );
 
