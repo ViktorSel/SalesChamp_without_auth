@@ -7,7 +7,7 @@ import {
   import Address, { AddressDocument } from '../model/address.model';
   
   export function createAddress(input: DocumentDefinition<AddressDocument>) {
-    return Address.create(input);
+      return Address.create(input);
   }
   
   export function findAddress(

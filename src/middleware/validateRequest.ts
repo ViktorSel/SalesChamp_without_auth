@@ -17,7 +17,7 @@ const validate = (schema: AnySchema) => async (
     return next();
   } catch (e :any) {
     log.error(e);
-    return res.status(400).send(e.errors);
+    return res.status(422).send(e.errors);
   }
 };
 
