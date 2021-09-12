@@ -65,7 +65,7 @@ export async function getAllAddressHandler(req: Request, res: Response) {
   
   res.setHeader('Location', Location);
 
-  if (!address) {
+  if (!address || (address && address.length == 0)) {
     return res.sendStatus(404);
   }
 
