@@ -32,7 +32,6 @@ export async function updateAddressHandler(req: Request, res: Response) {
     return res.sendStatus(404);
   }
 
-  console.log(address);
   if ((address && address.status == null) || (address && address.status == 'not at home')) {
 
     const updatedAddress = await findAndUpdate({ _id:addressId }, update, { new: true });

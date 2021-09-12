@@ -52,7 +52,7 @@ export default function (app: Express) {
  // Update a address
   app.patch(
     '/address/:addressId',
-    [requiresUser, validateRequest(updateAddressSchema)],
+    [validateRequest(updateAddressSchema)],
     updateAddressHandler
   );
 
@@ -65,7 +65,7 @@ export default function (app: Express) {
   //Delete a address
   app.delete(
     '/address/:addressId',
-    [requiresUser, validateRequest(deleteAddressSchema)],
+    [validateRequest(deleteAddressSchema)],
     deleteAddressHandler
   );
 }
