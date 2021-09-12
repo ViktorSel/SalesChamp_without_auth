@@ -79,7 +79,7 @@ export async function deleteAddressHandler(req: Request, res: Response) {
 
   res.setHeader('Location', Location);
 
-  const address = await findAddress({ addressId });
+  const address = await findAddress({ _id:addressId });
 
   if (!address) {
     return res.sendStatus(404);
