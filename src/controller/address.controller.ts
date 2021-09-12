@@ -94,7 +94,12 @@ export async function deleteAddressHandler(req: Request, res: Response) {
     return res.sendStatus(404);
   }
 
+  try {
   await deleteAddress({  _id:addressId });
+  }
+  catch(e:any) {
+    return res.sendStatus(409);
+  }
 
   return res.sendStatus(204);
 }
