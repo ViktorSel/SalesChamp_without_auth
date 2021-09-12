@@ -3,7 +3,6 @@ import { nanoid } from 'nanoid';
 import { UserDocument } from './user.model';
 
 export interface AddressDocument extends mongoose.Document {
-  userId: UserDocument['_id'];
   country: string;
   city: string;
   postalcode: string;
@@ -18,7 +17,6 @@ export interface AddressDocument extends mongoose.Document {
 
 const AddressSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     country: { type: String, minlength:2, maxlength:2, uppercase: true, trim: true },
     city: { type: String,  minlength:1, trim: true },
     street: { type: String,  minlength:1, trim: true },

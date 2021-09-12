@@ -30,7 +30,6 @@ import {
     options: QueryOptions
   ) {
     let address = await Address.findOneAndUpdate(query, update, options);
-    delete address?.userId;
     return address;
   }
   
