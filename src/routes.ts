@@ -44,27 +44,27 @@ export default function (app: Express) {
 
   //Create a address
   app.post(
-    '/api/address',
+    '/address',
     [requiresUser, validateRequest(createAddressSchema)],
     createAddressHandler
   );
 
  // Update a address
   app.patch(
-    '/api/address/:addressId',
+    '/address/:addressId',
     [requiresUser, validateRequest(updateAddressSchema)],
     updateAddressHandler
   );
 
    //Get all address
-  app.get('/api/address', getAllAddressHandler);
+  app.get('/address', getAllAddressHandler);
 
   //Get a address
-  app.get('/api/address/:addressId', getAddressHandler);
+  app.get('/address/:addressId', getAddressHandler);
 
   //Delete a address
   app.delete(
-    '/api/address/:addressId',
+    '/address/:addressId',
     [requiresUser, validateRequest(deleteAddressSchema)],
     deleteAddressHandler
   );
