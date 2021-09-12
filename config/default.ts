@@ -1,6 +1,6 @@
 export default {
   host: 'saleschamp.orel.in',
-  port: '3000',
+  port: '3001',
   dbUri: 'mongodb+srv://SalesChamp:SalesChamp@saleschampcluster.pg0kz.mongodb.net/SalesChampCluster?retryWrites=true&w=majority',
   saltWorkFactor: 10,
   accessTokenTtl: '15m',
