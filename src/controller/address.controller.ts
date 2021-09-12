@@ -16,7 +16,7 @@ export async function createAddressHandler(req: Request, res: Response) {
 
   const address = await createAddress(body);
 
-  return res.send(address);
+  return res.status(201).json(address)
 }
 
 export async function updateAddressHandler(req: Request, res: Response) {
