@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { get } from 'lodash';
+import _ from 'underscore';
 import {
   createAddress,
   findAddress,
@@ -55,6 +56,10 @@ export async function getAddressHandler(req: Request, res: Response) {
     return res.sendStatus(404);
   }
 
+  if (address) {
+    res.append('Last-Modified', (new Date(address.updatedAt)).toUTCString());
+  }
+
   return res.send(address);
 }
 
@@ -65,8 +70,12 @@ export async function getAllAddressHandler(req: Request, res: Response) {
   
   res.setHeader('Location', Location);
 
-  if (!address || (address && address.length == 0)) {
-    return res.sendStatus(404);
+  if (address.length) {
+    const lastModifiedSession = _.max(address, function (el) {
+      return new Date(el.updatedAt).getTime();
+    });
+    if (typeof lastModifiedSession == 'number') res.append('Last-Modified', (new Date(lastModifiedSession)).toUTCString());
+    else if (typeof lastModifiedSession == 'object') res.append('Last-Modified', (new Date(lastModifiedSession.updatedAt)).toUTCString());
   }
 
   return res.send(address);
@@ -85,7 +94,7 @@ export async function deleteAddressHandler(req: Request, res: Response) {
     return res.sendStatus(404);
   }
 
-  await deleteAddress({ addressId });
+  await deleteAddress({  _id:addressId });
 
   return res.sendStatus(204);
 }
